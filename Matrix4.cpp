@@ -116,6 +116,53 @@ Matrix4 Matrix4::Rotate(double x, double y, double z, double angle) {
 
     return rotationMatrix;
 }
+//Quaternion version 
+/*
+Matrix4 Matrix4::Rotate(double x, double y, double z, double angle) {
+    double rad = angle * M_PI / 180.0;
+    double s = sin(rad / 2);
+    double c = cos(rad / 2);
+    double vlen = sqrt(x * x + y * y + z * z);
+
+    // Create quaternion from axis-angle representation
+    double qx = x / vlen * s;
+    double qy = y / vlen * s;
+    double qz = z / vlen * s;
+    double qw = c;
+
+    // Normalize quaternion
+    double norm = sqrt(qx * qx + qy * qy + qz * qz + qw * qw);
+    qx /= norm;
+    qy /= norm;
+    qz /= norm;
+    qw /= norm;
+
+    // Compute matrix from quaternion
+    Matrix4 rotationMatrix;
+    rotationMatrix.mdata[0] = 1 - 2 * (qy * qy + qz * qz);
+    rotationMatrix.mdata[1] = 2 * (qx * qy - qw * qz);
+    rotationMatrix.mdata[2] = 2 * (qx * qz + qw * qy);
+    rotationMatrix.mdata[3] = 0;
+
+    rotationMatrix.mdata[4] = 2 * (qx * qy + qw * qz);
+    rotationMatrix.mdata[5] = 1 - 2 * (qx * qx + qz * qz);
+    rotationMatrix.mdata[6] = 2 * (qy * qz - qw * qx);
+    rotationMatrix.mdata[7] = 0;
+
+    rotationMatrix.mdata[8] = 2 * (qx * qz - qw * qy);
+    rotationMatrix.mdata[9] = 2 * (qy * qz + qw * qx);
+    rotationMatrix.mdata[10] = 1 - 2 * (qx * qx + qy * qy);
+    rotationMatrix.mdata[11] = 0;
+
+    rotationMatrix.mdata[12] = 0;
+    rotationMatrix.mdata[13] = 0;
+    rotationMatrix.mdata[14] = 0;
+    rotationMatrix.mdata[15] = 1;
+
+    return rotationMatrix;
+}
+
+*/
 // multiply vector v by this matrix
 Vector4 Matrix4::mult(Vector4 v)  {
     float x = v.x * mdata[0] + v.y * mdata[1] + v.z * mdata[2] + v.w * mdata[3];
