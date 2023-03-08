@@ -29,7 +29,6 @@ Matrix4::Matrix4(double m[]) {
     }
 }
 
-// static constructor function for translation matrix
 Matrix4 Matrix4::Translate(double tx, double ty, double tz) {
     Matrix4 mat;
     mat.mdata[3] = tx;
@@ -38,7 +37,6 @@ Matrix4 Matrix4::Translate(double tx, double ty, double tz) {
     return mat;
 }
 
-// static constructor function for scale matrix
 Matrix4 Matrix4::Scale(double sx, double sy, double sz) {
     Matrix4 mat;
     mat.mdata[0] = sx;
@@ -47,7 +45,6 @@ Matrix4 Matrix4::Scale(double sx, double sy, double sz) {
     return mat;
 }
 
-// static constructor function for X-axis rotation matrix
 Matrix4 Matrix4::RotateX(double angle) {
     double rad = angle * M_PI / 180.0;
     double c = cos(rad);
@@ -60,7 +57,6 @@ Matrix4 Matrix4::RotateX(double angle) {
     return mat;
 }
 
-// static constructor function for Y-axis rotation matrix
 Matrix4 Matrix4::RotateY(double angle) {
     double rad = angle * M_PI / 180.0;
     double c = cos(rad);
@@ -73,7 +69,6 @@ Matrix4 Matrix4::RotateY(double angle) {
     return mat;
 }
 
-// static constructor function for Z-axis rotation matrix
 Matrix4 Matrix4::RotateZ(double angle) {
     double rad = angle * M_PI / 180.0;
     double c = cos(rad);
@@ -86,7 +81,7 @@ Matrix4 Matrix4::RotateZ(double angle) {
     return mat;
 }
 
-// static constructor function for arbitrary-axis rotation matrix
+//Rodrigues rotation formula
 Matrix4 Matrix4::Rotate(double x, double y, double z, double angle) {
     double rad = angle * M_PI / 180.0;
     double c = cos(rad);
@@ -162,8 +157,8 @@ Matrix4 Matrix4::Rotate(double x, double y, double z, double angle) {
     return rotationMatrix;
 }
 
-*/
-// multiply vector v by this matrix
+*/ 
+
 Vector4 Matrix4::mult(Vector4 v)  {
     float x = v.x * mdata[0] + v.y * mdata[1] + v.z * mdata[2] + v.w * mdata[3];
     float y = v.x * mdata[4] + v.y * mdata[5] + v.z * mdata[6] + v.w * mdata[7];
@@ -171,8 +166,7 @@ Vector4 Matrix4::mult(Vector4 v)  {
     float w = v.x * mdata[12] + v.y * mdata[13] + v.z * mdata[14] + v.w * mdata[15];
     return Vector4(x, y, z, w);
 }
-
-// multiply matrix m by this matrix
+ 
 Matrix4 Matrix4::mult(Matrix4 m)  {
     Matrix4 result;
     for (int row = 0; row < 4; row++) {
@@ -186,8 +180,7 @@ Matrix4 Matrix4::mult(Matrix4 m)  {
     }
     return result;
 }
-
-// calculate the determinant
+ 
 double Matrix4::det() {
     double det = mdata[0] * mdata[5] * mdata[10] * mdata[15] - mdata[0] * mdata[5] * mdata[11] * mdata[14] -
         mdata[0] * mdata[6] * mdata[9] * mdata[15] + mdata[0] * mdata[6] * mdata[9] * mdata[14] + mdata[1] * mdata[6] * mdata[11] * mdata[12] - mdata[1] * mdata[6] * mdata[8] * mdata[15] +
